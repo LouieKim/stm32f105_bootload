@@ -23,6 +23,16 @@ uint32_t JumpAddress;
 uint32_t FlashProtection = 0;
 uint8_t aFileName[FILE_NAME_LENGTH];
 
+typedef struct{
+	uint8_t version[32];
+	uint8_t name[32];
+}firm_version_t;
+
+#define FLASH_ADDR_FW_VER 0x8010400
+
+
+firm_version_t *p_firm_ver = (firm_version_t *)(FLASH_ADDR_FW_VER);
+
 /* Private function prototypes -----------------------------------------------*/
 void SerialDownload(void);
 void SerialUpload(void);
@@ -146,6 +156,20 @@ void Main_Menu(void)
 
     switch (key)
     {
+    case 'a' :
+    	printf("==========\r\n");
+
+    	printf("version: %s \r\n", (uint8_t *)p_firm_ver->version);
+
+    	Serial_PutString((uint8_t *)"version Check.....\r\n");
+
+
+    	HAL_Delay(1000);
+
+    	//HAL_UART_Receive(&huart1, &key, 1, RX_TIMEOUT);
+
+    	//Serial_PutString((uint8_t *)"Receive verseron.....\r\n\n");
+    	break;
     case '1' :
       /* Download user application in the Flash */
       SerialDownload();

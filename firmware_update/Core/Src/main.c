@@ -37,16 +37,28 @@ extern uint32_t JumpAddress;
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+int __io_putchar(int ch)
+{
+	HAL_GPIO_WritePin(UART01_EN_GPIO_Port, UART01_EN_Pin, GPIO_PIN_SET);
+	while(HAL_OK != HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 100))
+	{}
+	HAL_GPIO_WritePin(UART01_EN_GPIO_Port, UART01_EN_Pin, GPIO_PIN_RESET);
+	return ch;
+}
+
 
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
 
 /* USER CODE END PV */
 
@@ -57,7 +69,7 @@ void SystemClock_Config(void);
 
 /*
 #if _UART_LOG_PRINT
-//Ôø???Ôø??? ?ÔøΩÔøΩ?ÔøΩÔøΩ Îß§ÌÅ¨Ôø???
+//ÔøΩ???ÔøΩ??? ?ÔøΩÔøΩ?ÔøΩÔøΩ Îß§ÌÅ¨ÔøΩ???
 #define LOG_PRINTF(fmt, ...) printf(fmt, ##__VA_ARGS__)
 
 #else

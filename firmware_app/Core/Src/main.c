@@ -37,10 +37,22 @@ extern uint32_t JumpAddress;
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+typedef struct{
+	uint8_t version[32];
+	uint8_t name[32];
+}firm_version_t;
+
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+__attribute__((section(".version"))) firm_version_t firm_ver =
+{
+		"aaaaaaaaa",
+		"STM32F411"
+};
+
 
 /* USER CODE END PM */
 
